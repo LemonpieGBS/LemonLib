@@ -8,9 +8,8 @@ using std::to_string;
 int main() {
 
     int integer_test;
-    printc("<#bg:ww><#nn>Please provide a number!<#bg:nn><#rs>\n#: ");
-    fetch_input(integer_test);
+    printc("<#ww>HELLO! <#bg:rd>HOW ARE YOU <#rs>IM GREAT <#fc:rs>WOO");
+    system("pause");
 
-    
     return 0;
 }

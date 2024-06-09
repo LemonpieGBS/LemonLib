@@ -3,6 +3,10 @@
 #include <map>
 
 #define array_length(x) (int) (sizeof(x) / sizeof(*x))
+#define allow_inheritance true
+
+bool global_inheritance = false;
+int global_color = 7;
 
 struct read_until_mat {
     std::string return_string = "";
@@ -40,9 +44,9 @@ read_until_mat read_until_char(std::string str, int begin_position, const char c
 
 enum COLORS {BLACK = 0, DARK_BLUE = 1, DARK_GREEN = 2, DARK_CYAN = 3, DARK_RED = 4, DARK_PURPLE = 5, DARK_YELLOW = 6, LIGHT_GRAY = 7, GRAY = 8, BLUE = 9, GREEN = 10, CYAN = 11, RED = 12, PURPLE = 13, YELLOW = 14, WHITE = 15};
 
-void set_color(int col) { HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE); SetConsoleTextAttribute(hConsole,col); }
+void set_color(int col) { HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE); SetConsoleTextAttribute(hConsole,col); global_color = col; }
 
-void color_reset() { HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE); SetConsoleTextAttribute(hConsole,LIGHT_GRAY); }
+void color_reset() { HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE); SetConsoleTextAttribute(hConsole,LIGHT_GRAY); global_color = LIGHT_GRAY; }
 
 void printc(std::string string_input) {
 
@@ -65,11 +69,16 @@ void printc(std::string string_input) {
     color_keys["yw"] = YELLOW; // Amarillo (yellow)
     color_keys["ww"] = WHITE; // Blanco (white) vale que blanco no se dice reset pero es para resetear el color
 
-    int current_background = BLACK, current_color = LIGHT_GRAY;
+    bool inherit = global_inheritance;
+    int current_background, current_color;
+
+    if(allow_inheritance) { current_background = global_color / 16; current_color = global_color % 16; }
+    else { current_background = BLACK; current_color = LIGHT_GRAY; }
+
     read_until_mat rr_mat, parameter_mat, value_mat;
     std::string current_string_print;
 
-    color_reset();
+    if(!allow_inheritance) { color_reset(); }
 
     for(int i = 0; i < (int) (string_input.length() - 1); i++) {
         char ch = string_input[i];
@@ -90,6 +99,15 @@ void printc(std::string string_input) {
 
                 if(parameter_mat.return_string == "bg") current_background = color_keys[value_mat.return_string];
                 else if(parameter_mat.return_string == "cl") current_color = color_keys[value_mat.return_string];
+                else if(parameter_mat.return_string == "fc") {
+                    if(value_mat.return_string == "ih") inherit = true;
+                    if(value_mat.return_string == "rs") {
+                        current_color = LIGHT_GRAY;
+                        current_background = BLACK;
+                    }
+                    if(value_mat.return_string == "gihON") { global_inheritance = true; inherit = true; }
+                    if(value_mat.return_string == "gihOFF") { global_inheritance = false; inherit = false; }
+                }
 
                 set_color((16 * current_background) + current_color);
             } else {
@@ -97,6 +115,8 @@ void printc(std::string string_input) {
                 current_color = color_keys[color_string];
                 set_color((16 * current_background) + current_color);
             }
+
+            if(i + 1 >= (int) (string_input.length() - 1)) std::cout<<string_input[i + 1];
 
         } else {
             if(i == (int) (string_input.length() - 2)) {
@@ -107,5 +127,5 @@ void printc(std::string string_input) {
         }
     }
 
-    color_reset();
+    if(!inherit || !allow_inheritance) color_reset();
 }
