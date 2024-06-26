@@ -47,10 +47,21 @@ std::initializer_list<char> disallowed_characters = _nullCHARSET) {
     char ch = _turboggetch();
     std::string working_string = "";
 
+    #if defined(_WIN32) || defined(_WIN64)
+
     const char BACKSPACE = 8;
     const char RETURN = 13;
     const char VOID = 0;
     const char TAB = 9;
+
+    #else
+
+    const char BACKSPACE = 127;
+    const char RETURN = 10;
+    const char VOID = 0;
+    const char TAB = 9;
+
+    #endif
 
     while( (ch != RETURN) || ((int) working_string.length() < min_chars)) {
 
@@ -115,10 +126,21 @@ int min_chars = !ALLOW_EMPTY) {
     char ch = _turboggetch();
     std::string working_string = "";
 
+    #if defined(_WIN32) || defined(_WIN64)
+
     const char BACKSPACE = 8;
     const char RETURN = 13;
     const char VOID = 0;
     const char TAB = 9;
+
+    #else
+
+    const char BACKSPACE = 127;
+    const char RETURN = 10;
+    const char VOID = 0;
+    const char TAB = 9;
+
+    #endif
 
     while( (ch != RETURN) || ((int) working_string.length() < min_chars)) {
 
@@ -185,10 +207,21 @@ int min_chars = !ALLOW_EMPTY) {
     char ch = _turboggetch();
     std::string working_string = "";
 
+    #if defined(_WIN32) || defined(_WIN64)
+
     const char BACKSPACE = 8;
     const char RETURN = 13;
     const char VOID = 0;
     const char TAB = 9;
+
+    #else
+
+    const char BACKSPACE = 127;
+    const char RETURN = 10;
+    const char VOID = 0;
+    const char TAB = 9;
+
+    #endif
 
     bool used_decimal = false;
 
@@ -275,10 +308,21 @@ std::initializer_list<char> disallowed_characters = _nullCHARSET) {
     char ch = _turboggetch();
     std::string working_string = "";
 
+    #if defined(_WIN32) || defined(_WIN64)
+
     const char BACKSPACE = 8;
     const char RETURN = 13;
     const char VOID = 0;
     const char TAB = 9;
+
+    #else
+
+    const char BACKSPACE = 127;
+    const char RETURN = 10;
+    const char VOID = 0;
+    const char TAB = 9;
+
+    #endif
 
     while( (ch != RETURN) || ((int) working_string.length() < min_chars)) {
 
