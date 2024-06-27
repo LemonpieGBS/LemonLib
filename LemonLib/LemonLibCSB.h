@@ -3,6 +3,17 @@
 #include <string>
 #include <cstdarg>
 
+#ifdef _WIN32
+#include <windows.h>
+void CSB_VIRTUAL_PROCESSING() {
+    HANDLE hOut = GetStdHandle(STD_OUTPUT_HANDLE);
+    DWORD dwMode = 0;
+    GetConsoleMode(hOut, &dwMode);
+    dwMode |= ENABLE_VIRTUAL_TERMINAL_PROCESSING;
+    SetConsoleMode(hOut, dwMode);
+}
+#endif
+
 namespace LLC
 {
 

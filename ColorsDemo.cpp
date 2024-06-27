@@ -7,6 +7,10 @@ using namespace std;
 
 int main() {
 
+    #ifdef _WIN32
+        CSB_VIRTUAL_PROCESSING();
+    #endif
+
     // Esta es una demostración de LemonLibCSB.h, una libreria de colores que usa ANSI para
     // sus formatos, conviertiendola en muy portable
     
@@ -95,6 +99,7 @@ int main() {
     // ventajas :)
 
     _csbRESET(); // Al final de tu programa, asegurate de resetear CSB por si acaso. Es buena practica.
+    system("pause");
 
     return 0;
 
