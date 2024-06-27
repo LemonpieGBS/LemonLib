@@ -92,8 +92,9 @@ namespace LLC
     {
 
         std::cout << "\e[22m"; // Reset bold
+        std::cout << "\e[23m"; // Reset italics
         std::cout << "\e[24m"; // Reset underline
-        std::cout << "\e[25m"; // Reset blink
+        //std::cout << "\e[25m"; // Reset blink
         std::cout << "\e[27m"; // Reset reverse
         std::cout << "\e[29m"; // Reset strikethrough
     }
@@ -140,9 +141,10 @@ namespace LLC
         if (reset == rtSTATES || reset == rtFULL)
         {
             return_tag += "\e[22m"; // Reset bold
+            return_tag += "\e[23m"; // Reset italics
             return_tag += "\e[24m"; // Reset underline
-            return_tag += "\e[25m"; // Reset blink
-            return_tag += "\e[27m"; // Reset reverse
+            //return_tag += "\e[25m"; // Reset blink
+            //return_tag += "\e[27m"; // Reset reverse
             return_tag += "\e[29m"; // Reset strikethrough
         }
 
