@@ -80,10 +80,10 @@ namespace LLC
 
     };
 
-    void _colSET(COLORS col) { printf("\e[38;5;%dm", col); }
+    void _colSET(COLORS col) { printf("\033[38;5;%dm", col); }
     void _colRESET() { std::cout << "\033[39m"; }
 
-    void _stateSET(STATES st) { printf("\e[%dm", st); }
+    void _stateSET(STATES st) { printf("\033[%dm", st); }
     template <typename... ARGS> void _stateSET(STATES first, ARGS ... stargs) {
         _stateSET(first); _stateSET(stargs ...);
     }
@@ -91,32 +91,32 @@ namespace LLC
     void _stateRESET()
     {
 
-        std::cout << "\e[22m"; // Reset bold
-        std::cout << "\e[23m"; // Reset italics
-        std::cout << "\e[24m"; // Reset underline
-        //std::cout << "\e[25m"; // Reset blink
-        std::cout << "\e[27m"; // Reset reverse
-        std::cout << "\e[29m"; // Reset strikethrough
+        std::cout << "\033[22m"; // Reset bold
+        std::cout << "\033[23m"; // Reset italics
+        std::cout << "\033[24m"; // Reset underline
+        //std::cout << "\033[25m"; // Reset blink
+        std::cout << "\033[27m"; // Reset reverse
+        std::cout << "\033[29m"; // Reset strikethrough
     }
 
-    void _backgroundSET(BACKGROUNDS bg) { printf("\e[48;5;%dm", bg); }
+    void _backgroundSET(BACKGROUNDS bg) { printf("\033[48;5;%dm", bg); }
     void _backgroundRESET() { std::cout << "\033[49m"; }
 
-    void _csbRESET() { printf("\e[0m"); }
+    void _csbRESET() { printf("\033[0m"); }
 
     std::string _cTAG(COLORS col)
     {
-        return ("\e[38;5;" + std::to_string(col) + "m");
+        return ("\033[38;5;" + std::to_string(col) + "m");
     }
 
     std::string _cTAG(STATES st)
     {
-        return ("\e[" + std::to_string(st) + "m");
+        return ("\033[" + std::to_string(st) + "m");
     }
 
     std::string _cTAG(BACKGROUNDS bg)
     {
-        return ("\e[48;5;" + std::to_string(bg) + "m");
+        return ("\033[48;5;" + std::to_string(bg) + "m");
     }
 
     template <typename T, typename... Args>
@@ -140,12 +140,12 @@ namespace LLC
             return_tag += "\033[49m"; // Reset Background
         if (reset == rtSTATES || reset == rtFULL)
         {
-            return_tag += "\e[22m"; // Reset bold
-            return_tag += "\e[23m"; // Reset italics
-            return_tag += "\e[24m"; // Reset underline
-            //return_tag += "\e[25m"; // Reset blink
-            //return_tag += "\e[27m"; // Reset reverse
-            return_tag += "\e[29m"; // Reset strikethrough
+            return_tag += "\033[22m"; // Reset bold
+            return_tag += "\033[23m"; // Reset italics
+            return_tag += "\033[24m"; // Reset underline
+            //return_tag += "\033[25m"; // Reset blink
+            //return_tag += "\033[27m"; // Reset reverse
+            return_tag += "\033[29m"; // Reset strikethrough
         }
 
         return return_tag;
@@ -168,12 +168,12 @@ namespace LLC
 
     void _colSET(int r, int g, int b)
     {
-        printf("\e[38;2;%d;%d;%dm", r, g, b);
+        printf("\033[38;2;%d;%d;%dm", r, g, b);
     }
 
     void _backgroundSET(int r, int g, int b)
     {
-        printf("\e[48;2;%d;%d;%dm", r, g, b);
+        printf("\033[48;2;%d;%d;%dm", r, g, b);
     }
 }
 
